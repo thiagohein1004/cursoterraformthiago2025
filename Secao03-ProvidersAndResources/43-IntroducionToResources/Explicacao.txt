@@ -1,0 +1,60 @@
+🔹 O que são Resources no Terraform?
+No Terraform, resources são os blocos fundamentais usados para criar e gerenciar a infraestrutura. Cada recurso representa um objeto da infraestrutura que o Terraform pode provisionar, como:
+
+Uma instância EC2 na AWS.
+
+Um bucket S3.
+
+Uma máquina virtual no Azure.
+
+Uma regra de firewall no GCP.
+
+Entre muitos outros.
+
+📌 Estrutura de um recurso:
+hcl
+Copy
+Edit
+resource "<PROVEDOR>_<TIPO_RECURSO>" "<NOME_LOCAL>" {
+  # Argumentos de configuração do recurso
+}
+resource: palavra-chave obrigatória.
+
+<PROVEDOR>_<TIPO_RECURSO>: identifica o tipo de recurso e de qual provedor (ex: aws_instance).
+
+<NOME_LOCAL>: nome local usado para referenciar esse recurso em outros blocos.
+
+✅ Exemplo Prático 1: Criando uma instância EC2 na AWS
+hcl
+Copy
+Edit
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "exemplo_ec2" {
+  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "MinhaPrimeiraEC2"
+  }
+}
+Esse recurso cria uma instância EC2 usando uma AMI e tipo t2.micro.
+
+A instância recebe uma tag Name = "MinhaPrimeiraEC2".
+
+✅ Exemplo Prático 2: Criando um bucket S3
+hcl
+Copy
+Edit
+resource "aws_s3_bucket" "meu_bucket" {
+  bucket = "thiago-curso-terraform-bucket"
+  acl    = "private"
+}
+🧠 Dicas Importantes:
+Todo recurso deve ter ID único, por isso o bucket precisa ser globalmente único no S3.
+
+Você pode referenciar recursos entre si com "nome_do_recurso.nome_local.atributo".
+
+A estrutura HCL (HashiCorp Configuration Language) permite interpolação e uso de variáveis para modularidade.

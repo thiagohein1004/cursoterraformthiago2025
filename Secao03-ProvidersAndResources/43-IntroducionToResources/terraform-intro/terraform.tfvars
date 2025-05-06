@@ -1,0 +1,1 @@
+bucket_name = "mynametgo2025hein"
